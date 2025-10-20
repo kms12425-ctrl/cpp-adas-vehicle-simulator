@@ -15,9 +15,6 @@ namespace adas
     // NewExecutor方法
     Executor *Executor::NewExecutor(const Pose &pose) noexcept
     {
-        // return new (std::nothrow) ExecutorImpl(pose); // c++17
-        // Cannot instantiate abstract ExecutorImpl; return nullptr until a concrete implementation is available.
-        (void)pose;
-        return nullptr;
+        return new (std::nothrow) ExecutorImpl(pose); // c++17
     }
 }
