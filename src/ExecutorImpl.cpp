@@ -32,6 +32,7 @@ namespace adas
                 else if (pose.heading == 'N')
                     pose.heading = 'W';
             }
+
             else if (cmd == 'R')
             {
                 if (pose.heading == 'E')
