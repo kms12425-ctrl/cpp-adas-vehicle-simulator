@@ -33,17 +33,6 @@ namespace adas
                     pose.heading = 'W';
             }
 
-            else if (cmd == 'R')
-            {
-                if (pose.heading == 'E')
-                    pose.heading = 'S';
-                else if (pose.heading == 'S')
-                    pose.heading = 'W';
-                else if (pose.heading == 'W')
-                    pose.heading = 'E';
-                else if (pose.heading == 'N')
-                    pose.heading = 'N';
-            }
             else if (cmd == 'M')
             {
                 if (pose.heading == 'E')
