@@ -36,4 +36,18 @@ namespace adas
         const Pose target = {0, 0, 'N'};
         ASSERT_EQ(executor->Query(), target);
     }
+
+    // 测试用例3
+    TEST(ExecutorTest, should_return_x_plus_1_given_command_is_M_and_facing_is_E)
+    {
+        // given给定一个executor
+        std::unique_ptr<Executor> executor(Executor::NewExecutor({0, 0, 'E'}));
+
+        // when 调用executor的Execute方法执行M指令
+        executor->Execute("M");
+
+        // then
+        const Pose target = {1, 0, 'E'};
+        ASSERT_EQ(executor->Query(), target);
+    }
 }
