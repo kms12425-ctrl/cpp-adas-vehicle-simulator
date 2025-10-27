@@ -40,6 +40,7 @@ namespace adas
             else if (cmd == 'R')
             {
                 // 智能指针指向 TurnRightCommand实例，不用担心delete了
+
                 std::unique_ptr<TurnRightCommand> cmder = std::make_unique<TurnRightCommand>();
                 //*this就是 ExecutorImpl实例对象，作为实参 传递给 DoOperate方法
                 cmder->DoOperate(*this);
