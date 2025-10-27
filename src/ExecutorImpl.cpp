@@ -4,7 +4,7 @@
 namespace adas
 {
     // 并没有初始化ExecutorImpl的pose成员变量
-    ExecutorImpl::ExecutorImpl(const Pose &pose) noexcept : pose(pose) {}
+    ExecutorImpl::ExecutorImpl(const Pose &pose) noexcept : pose(pose), isFast(false) {}
 
     // Query方法
     Pose ExecutorImpl::Query(void) const noexcept
@@ -45,16 +45,20 @@ namespace adas
                     pose.heading = 'W';
             }
             else if (cmd == 'M')
-            {
-                if (pose.heading == 'E')
-                    pose.x++;
-                else if (pose.heading == 'S')
-                    pose.y--;
-                else if (pose.heading == 'W')
-                    pose.x--;
-                else if (pose.heading == 'N')
-                    pose.y++;
-            }
+                Move();
+            else if (cmd == 'F')
+                isFast = !isFast;
         }
+    }
+    void ExecutorImpl::Move() noexcept
+    {
+        if (pose.heading == 'E')
+            pose.x++;
+        else if (pose.heading == 'S')
+            pose.y--;
+        else if (pose.heading == 'W')
+            pose.x--;
+        else if (pose.heading == 'N')
+            pose.y++;
     }
 }

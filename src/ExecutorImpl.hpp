@@ -29,5 +29,7 @@ namespace adas
     private:
         // 当前汽车姿态
         Pose pose;
+        bool isFast;
+        void Move(void) noexcept;
     };
 }
