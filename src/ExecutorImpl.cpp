@@ -25,21 +25,25 @@ namespace adas
             std::unique_ptr<ICommand> cmder;
             if (cmd == 'M')
             {
-                // 智能指针指向 MoveCommand实例，不用担心delete了
+                // 智能指针指向 MoveCommand实例
                 cmder = std::make_unique<MoveCommand>();
             }
             if (cmd == 'L')
             {
-                // 智能指针指向 TurnLeftCommand实例，不用担心delete了
+                // 智能指针指向 TurnLeftCommand实例
                 cmder = std::make_unique<TurnLeftCommand>();
             }
             else if (cmd == 'R')
             {
-                // 智能指针指向 TurnRightCommand实例，不用担心delete了
+                // 智能指针指向 TurnRightCommand实例
                 cmder = std::make_unique<TurnRightCommand>();
             }
             else if (cmd == 'F')
-                isFast = !isFast;
+            {
+                cmder = std::make_unique<FastCommand>();
+            }
+            if (cmder)
+                cmder->DoOperate(*this);
         }
     }
     void ExecutorImpl::Move() noexcept // Move 方法
@@ -75,5 +79,12 @@ namespace adas
         else if (pose.heading == 'S')
             pose.heading = 'W';
     }
-
+    void ExecutorImpl::Fast() noexcept
+    {
+        isFast = !isFast;
+    }
+    bool ExecutorImpl::IsFast(void) const noexcept
+    {
+        return isFast;
+    }
 }
