@@ -1,4 +1,5 @@
 #include "ExecutorImpl.hpp"
+#include <memory>
 #include <new>
 
 namespace adas
@@ -21,17 +22,33 @@ namespace adas
     {
         for (const auto cmd : command)
         {
+
+            if (cmd == 'M')
+            {
+                // 智能指针指向 MoveCommand实例，不用担心delete了
+                std::unique_ptr<MoveCommand> cmder = std::make_unique<MoveCommand>();
+                //*this就是 ExecutorImpl实例对象，作为实参 传递给 DoOperate方法
+                cmder->DoOperate(*this);
+            }
             if (cmd == 'L')
-                TurnLeft();
+            {
+                // 智能指针指向 TurnLeftCommand实例，不用担心delete了
+                std::unique_ptr<TurnLeftCommand> cmder = std::make_unique<TurnLeftCommand>();
+                //*this就是 ExecutorImpl实例对象，作为实参 传递给 DoOperate方法
+                cmder->DoOperate(*this);
+            }
             else if (cmd == 'R')
-                TurnRight();
-            else if (cmd == 'M')
-                Move();
+            {
+                // 智能指针指向 TurnRightCommand实例，不用担心delete了
+                std::unique_ptr<TurnRightCommand> cmder = std::make_unique<TurnRightCommand>();
+                //*this就是 ExecutorImpl实例对象，作为实参 传递给 DoOperate方法
+                cmder->DoOperate(*this);
+            }
             else if (cmd == 'F')
                 isFast = !isFast;
         }
     }
-    void ExecutorImpl::Move() noexcept
+    void ExecutorImpl::Move() noexcept // Move 方法
     {
         if (pose.heading == 'E')
             pose.x++;
@@ -42,7 +59,7 @@ namespace adas
         else if (pose.heading == 'N')
             pose.y++;
     }
-    void ExecutorImpl::TurnLeft() noexcept
+    void ExecutorImpl::TurnLeft() noexcept // Turn Left 方法
     {
         if (pose.heading == 'E')
             pose.heading = 'N';
@@ -53,7 +70,7 @@ namespace adas
         else if (pose.heading == 'N')
             pose.heading = 'W';
     }
-    void ExecutorImpl::TurnRight() noexcept
+    void ExecutorImpl::TurnRight() noexcept // Turn Right方法
     {
         if (pose.heading == 'E')
             pose.heading = 'S';
@@ -64,4 +81,5 @@ namespace adas
         else if (pose.heading == 'S')
             pose.heading = 'W';
     }
+
 }
