@@ -22,28 +22,9 @@ namespace adas
         for (const auto cmd : command)
         {
             if (cmd == 'L')
-            {
-                if (pose.heading == 'E')
-                    pose.heading = 'N';
-                else if (pose.heading == 'S')
-                    pose.heading = 'E';
-                else if (pose.heading == 'W')
-                    pose.heading = 'S';
-                else if (pose.heading == 'N')
-                    pose.heading = 'W';
-            }
-
+                TurnLeft();
             else if (cmd == 'R')
-            {
-                if (pose.heading == 'E')
-                    pose.heading = 'S';
-                else if (pose.heading == 'W')
-                    pose.heading = 'N';
-                else if (pose.heading == 'N')
-                    pose.heading = 'E';
-                else if (pose.heading == 'S')
-                    pose.heading = 'W';
-            }
+                TurnRight();
             else if (cmd == 'M')
                 Move();
             else if (cmd == 'F')
@@ -60,5 +41,27 @@ namespace adas
             pose.x--;
         else if (pose.heading == 'N')
             pose.y++;
+    }
+    void ExecutorImpl::TurnLeft() noexcept
+    {
+        if (pose.heading == 'E')
+            pose.heading = 'N';
+        else if (pose.heading == 'S')
+            pose.heading = 'E';
+        else if (pose.heading == 'W')
+            pose.heading = 'S';
+        else if (pose.heading == 'N')
+            pose.heading = 'W';
+    }
+    void ExecutorImpl::TurnRight() noexcept
+    {
+        if (pose.heading == 'E')
+            pose.heading = 'S';
+        else if (pose.heading == 'W')
+            pose.heading = 'N';
+        else if (pose.heading == 'N')
+            pose.heading = 'E';
+        else if (pose.heading == 'S')
+            pose.heading = 'W';
     }
 }
