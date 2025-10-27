@@ -35,26 +35,35 @@ namespace adas
         void TurnRight(void) noexcept;
 
     private:
-        class MoveCommand final
+        class ICommand
         {
         public:
-            void DoOperate(ExecutorImpl &executor) const noexcept
+            // 在这里给出析构函数和纯虚函数 DoOperate的声明
+            virtual ~ICommand() = default;
+            virtual void DoOperate(ExecutorImpl &ExecutorImpl) const noexcept = 0;
+        };
+
+    private:
+        class MoveCommand final : public ICommand
+        {
+        public:
+            void DoOperate(ExecutorImpl &executor) const noexcept override
             {
                 executor.Move();
             }
         };
-        class TurnLeftCommand final
+        class TurnLeftCommand final : public ICommand
         {
         public:
-            void DoOperate(ExecutorImpl &executor) const noexcept
+            void DoOperate(ExecutorImpl &executor) const noexcept override
             {
                 executor.TurnLeft();
             }
         };
-        class TurnRightCommand final
+        class TurnRightCommand final : public ICommand
         {
         public:
-            void DoOperate(ExecutorImpl &executor) const noexcept
+            void DoOperate(ExecutorImpl &executor) const noexcept override
             {
                 executor.TurnRight();
             }
