@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Executor.hpp"
+#include "PoseHandler.hpp"
 #include <string>
 
 namespace adas
@@ -26,13 +27,7 @@ namespace adas
         // 通过命令执行驾驶动作，纯虚函数，留给子类具体实现
         void Execute(const std::string &commands) noexcept override;
 
-    public:
-        Pose pose;                        // 当前汽车姿态
-        bool isFast{false};               // 是否为Fast状态
-        void Move(void) noexcept;         // 移动方法
-        void TurnLeft(void) noexcept;     // 左转方法
-        void TurnRight(void) noexcept;    // 右转方法
-        void Fast(void) noexcept;         // 改变Fast状态
-        bool IsFast(void) const noexcept; // 查询是否为Fast状态
+    private:
+        PoseHandler poseHandler; // 状态管理类
     };
 }

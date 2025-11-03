@@ -1,5 +1,5 @@
 #pragma once
-#include "ExecutorImpl.hpp"
+#include "PoseHandler.hpp"
 
 namespace adas
 {
@@ -8,45 +8,45 @@ namespace adas
     public:
         // 在这里给出析构函数和纯虚函数 DoOperate的声明
         virtual ~ICommand() = default;
-        virtual void DoOperate(ExecutorImpl &ExecutorImpl) const noexcept = 0;
+        virtual void DoOperate(PoseHandler &poseHandler) const noexcept = 0;
     };
 
     class MoveCommand final : public ICommand
     {
     public:
-        void DoOperate(ExecutorImpl &executor) const noexcept override
+        void DoOperate(PoseHandler &poseHandler) const noexcept override
         {
-            if (executor.IsFast())
-                executor.Move();
-            executor.Move();
+            if (poseHandler.IsFast())
+                poseHandler.Move();
+            poseHandler.Move();
         }
     };
     class TurnLeftCommand final : public ICommand
     {
     public:
-        void DoOperate(ExecutorImpl &executor) const noexcept override
+        void DoOperate(PoseHandler &poseHandler) const noexcept override
         {
-            if (executor.IsFast())
-                executor.Move();
-            executor.TurnLeft();
+            if (poseHandler.IsFast())
+                poseHandler.Move();
+            poseHandler.TurnLeft();
         }
     };
     class TurnRightCommand final : public ICommand
     {
     public:
-        void DoOperate(ExecutorImpl &executor) const noexcept override
+        void DoOperate(PoseHandler &poseHandler) const noexcept override
         {
-            if (executor.IsFast())
-                executor.Move();
-            executor.TurnRight();
+            if (poseHandler.IsFast())
+                poseHandler.Move();
+            poseHandler.TurnRight();
         }
     };
     class FastCommand final : public ICommand
     {
     public:
-        void DoOperate(ExecutorImpl &executor) const noexcept override
+        void DoOperate(PoseHandler &poseHandler) const noexcept override
         {
-            executor.Fast();
+            poseHandler.Fast();
         }
     };
 }
