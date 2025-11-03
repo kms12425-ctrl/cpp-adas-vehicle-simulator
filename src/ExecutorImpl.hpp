@@ -26,7 +26,7 @@ namespace adas
         // 通过命令执行驾驶动作，纯虚函数，留给子类具体实现
         void Execute(const std::string &commands) noexcept override;
 
-    private:
+    public:
         Pose pose;                        // 当前汽车姿态
         bool isFast{false};               // 是否为Fast状态
         void Move(void) noexcept;         // 移动方法
@@ -34,55 +34,5 @@ namespace adas
         void TurnRight(void) noexcept;    // 右转方法
         void Fast(void) noexcept;         // 改变Fast状态
         bool IsFast(void) const noexcept; // 查询是否为Fast状态
-
-    private:
-        class ICommand
-        {
-        public:
-            // 在这里给出析构函数和纯虚函数 DoOperate的声明
-            virtual ~ICommand() = default;
-            virtual void DoOperate(ExecutorImpl &ExecutorImpl) const noexcept = 0;
-        };
-
-    private:
-        class MoveCommand final : public ICommand
-        {
-        public:
-            void DoOperate(ExecutorImpl &executor) const noexcept override
-            {
-                if (executor.IsFast())
-                    executor.Move();
-                executor.Move();
-            }
-        };
-        class TurnLeftCommand final : public ICommand
-        {
-        public:
-            void DoOperate(ExecutorImpl &executor) const noexcept override
-            {
-                if (executor.IsFast())
-                    executor.Move();
-                executor.TurnLeft();
-            }
-        };
-        class TurnRightCommand final : public ICommand
-        {
-        public:
-            void DoOperate(ExecutorImpl &executor) const noexcept override
-            {
-                if (executor.IsFast())
-                    executor.Move();
-                executor.TurnRight();
-            }
-        };
-        class FastCommand final : public ICommand
-        {
-        public:
-            void DoOperate(ExecutorImpl &executor) const noexcept override
-            {
-                executor.Fast();
-            }
-        };
     };
-
 }
