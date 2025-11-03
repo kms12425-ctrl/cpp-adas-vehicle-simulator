@@ -1,13 +1,15 @@
 #pragma once
 #include "Executor.hpp"
+#include "Direction.hpp"
 
 namespace adas
 {
     class PoseHandler final
     {
     private:
-        Pose pose;          // 当前汽车姿态
-        bool isFast{false}; // 是否为Fast状态
+        Point point;
+        const Direction *facing; // 当前汽车姿态
+        bool isFast{false};      // 是否为Fast状态
     public:
         void Move(void) noexcept;         // 移动方法
         void TurnLeft(void) noexcept;     // 左转方法

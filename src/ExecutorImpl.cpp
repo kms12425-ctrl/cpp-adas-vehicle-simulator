@@ -28,6 +28,7 @@ namespace adas
         cmderMap.emplace('L', std::make_unique<TurnLeftCommand>());
         cmderMap.emplace('R', std::make_unique<TurnRightCommand>());
         cmderMap.emplace('F', std::make_unique<FastCommand>());
+
         for (const auto cmd : command)
         {
             // 根据操作查找表驱动
