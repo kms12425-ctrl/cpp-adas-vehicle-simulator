@@ -21,6 +21,7 @@ namespace adas
             poseHandler.Move();
         }
     };
+
     class TurnLeftCommand final : public ICommand
     {
     public:
@@ -31,6 +32,7 @@ namespace adas
             poseHandler.TurnLeft();
         }
     };
+
     class TurnRightCommand final : public ICommand
     {
     public:
@@ -41,6 +43,7 @@ namespace adas
             poseHandler.TurnRight();
         }
     };
+
     class FastCommand final : public ICommand
     {
     public:
