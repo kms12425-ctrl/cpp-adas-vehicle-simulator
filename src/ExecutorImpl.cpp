@@ -23,11 +23,23 @@ namespace adas
 
     void ExecutorImpl::Execute(const std::string &command) noexcept
     {
-        std::unordered_map<char, std::unique_ptr<ICommand>> cmderMap;
-        cmderMap.emplace('M', std::make_unique<MoveCommand>());
-        cmderMap.emplace('L', std::make_unique<TurnLeftCommand>());
-        cmderMap.emplace('R', std::make_unique<TurnRightCommand>());
-        cmderMap.emplace('F', std::make_unique<FastCommand>());
+        std::unordered_map<char, std::function<void(PoseHandler & PoseHandler)>> cmderMap;
+
+        // 前进
+        MoveCommand moveCommand;
+        cmderMap.emplace('M', moveCommand.operate);
+
+        // 左转
+        TurnLeftCommand turnleftCommand;
+        cmderMap.emplace('L', turnleftCommand.operate);
+
+        // 右转
+        TurnRightCommand turnrightCommand;
+        cmderMap.emplace('R', turnrightCommand.operate);
+
+        // 加速
+        FastCommand fastCommand;
+        cmderMap.emplace('F', fastCommand.operate);
 
         for (const auto cmd : command)
         {
@@ -35,7 +47,7 @@ namespace adas
             const auto it = cmderMap.find(cmd);
             // 如果找到表驱动，执行操作指令
             if (it != cmderMap.end())
-                it->second->DoOperate(poseHandler);
+                it->second(poseHandler);
             // std::unique_ptr<ICommand> cmder = nullptr;
             // if (cmd == 'M')
             // {
