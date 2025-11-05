@@ -24,12 +24,19 @@ namespace adas
         // }
 
         // 定义函数对象operator，接收函数PoseHandler，返回void
-        const std::function<void(PoseHandler &PoseHandler)> operate = [](PoseHandler &poseHandler) noexcept
+        // const std::function<void(PoseHandler &PoseHandler)> operate = [](PoseHandler &poseHandler) noexcept
+        // {
+        //     if (poseHandler.IsFast())
+        //         poseHandler.Move();
+        //     poseHandler.Move();
+        // };
+
+        void operator()(PoseHandler &poseHandler) const noexcept
         {
             if (poseHandler.IsFast())
                 poseHandler.Move();
             poseHandler.Move();
-        };
+        }
     };
 
     class TurnLeftCommand final //: public ICommand
@@ -42,7 +49,14 @@ namespace adas
         //     poseHandler.TurnLeft();
         // }
         // 定义函数对象operator，接收函数PoseHandler，返回void
-        const std::function<void(PoseHandler &PoseHandler)> operate = [](PoseHandler &poseHandler) noexcept
+        // const std::function<void(PoseHandler &PoseHandler)> operate = [](PoseHandler &poseHandler) noexcept
+        // {
+        //     if (poseHandler.IsFast())
+        //         poseHandler.Move();
+        //     poseHandler.TurnLeft();
+        // };
+
+        void operator()(PoseHandler &poseHandler) const noexcept
         {
             if (poseHandler.IsFast())
                 poseHandler.Move();
@@ -60,7 +74,13 @@ namespace adas
         //     poseHandler.TurnRight();
         // }
         // 定义函数对象operator，接收函数PoseHandler，返回void
-        const std::function<void(PoseHandler &PoseHandler)> operate = [](PoseHandler &poseHandler) noexcept
+        // const std::function<void(PoseHandler &PoseHandler)> operate = [](PoseHandler &poseHandler) noexcept
+        // {
+        //     if (poseHandler.IsFast())
+        //         poseHandler.Move();
+        //     poseHandler.TurnRight();
+        // };
+        void operator()(PoseHandler &poseHandler) const noexcept
         {
             if (poseHandler.IsFast())
                 poseHandler.Move();
@@ -75,9 +95,13 @@ namespace adas
         // {
         //     poseHandler.Fast();
         // }
-        const std::function<void(PoseHandler &PoseHandler)> operate = [](PoseHandler &poseHandler) noexcept
+        // const std::function<void(PoseHandler &PoseHandler)> operate = [](PoseHandler &poseHandler) noexcept
+        // {
+        //     poseHandler.Fast();
+        // };
+        void operator()(PoseHandler &poseHandler) const noexcept
         {
             poseHandler.Fast();
-        };
+        }
     };
 }
