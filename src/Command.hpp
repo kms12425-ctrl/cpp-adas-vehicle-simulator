@@ -34,8 +34,25 @@ namespace adas
         void operator()(PoseHandler &poseHandler) const noexcept
         {
             if (poseHandler.IsFast())
-                poseHandler.Move();
-            poseHandler.Move();
+            {
+                if (poseHandler.IsReverse())
+                    poseHandler.Backward();
+                else
+                    poseHandler.Forward();
+            }
+            if (poseHandler.IsReverse())
+                poseHandler.Backward();
+            else
+                poseHandler.Forward();
+        }
+    };
+
+    class ReverseCommand final
+    {
+    public:
+        void operator()(PoseHandler &poseHandler) const noexcept
+        {
+            poseHandler.Reverse();
         }
     };
 
@@ -59,8 +76,16 @@ namespace adas
         void operator()(PoseHandler &poseHandler) const noexcept
         {
             if (poseHandler.IsFast())
-                poseHandler.Move();
-            poseHandler.TurnLeft();
+            {
+                if (poseHandler.IsReverse())
+                    poseHandler.Backward();
+                else
+                    poseHandler.Forward();
+            }
+            if (poseHandler.IsReverse())
+                poseHandler.TurnRight();
+            else
+                poseHandler.TurnLeft();
         };
     };
 
@@ -83,8 +108,16 @@ namespace adas
         void operator()(PoseHandler &poseHandler) const noexcept
         {
             if (poseHandler.IsFast())
-                poseHandler.Move();
-            poseHandler.TurnRight();
+            {
+                if (poseHandler.IsReverse())
+                    poseHandler.Backward();
+                else
+                    poseHandler.Forward();
+            }
+            if (poseHandler.IsReverse())
+                poseHandler.TurnLeft();
+            else
+                poseHandler.TurnRight();
         };
     };
 

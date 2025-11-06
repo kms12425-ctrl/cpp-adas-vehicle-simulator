@@ -26,12 +26,15 @@ namespace adas
         std::unordered_map<char, std::function<void(PoseHandler & PoseHandler)>> cmderMap{
             // 前进
             {'M', MoveCommand()},
+            // 后退
+            {'B', ReverseCommand()},
             // 左转
             {'L', TurnLeftCommand()},
             // 右转
             {'R', TurnRightCommand()},
             // 加速
             {'F', FastCommand()},
+
         };
 
         // // 前进
