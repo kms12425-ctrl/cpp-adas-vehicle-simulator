@@ -13,7 +13,7 @@ namespace adas
     class CmderFactory final
     {
     private:
-        const std::unordered_map<char, std::function<void(PoseHandler &poseHandler)>> cmderMap{
+        const std::unordered_map<char, Cmder> cmderMap{
             // 前进
             {'M', MoveCommand()},
             // 后退
@@ -34,6 +34,6 @@ namespace adas
         CmderFactory &operator=(const CmderFactory &) = delete;
 
     public:
-        std::list<std::function<void(PoseHandler &poseHandler)>> GetCmders(const std::string &commands) const noexcept;
+        CmderList GetCmders(const std::string &commands) const noexcept;
     };
 } // namespace adas
