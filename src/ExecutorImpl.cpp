@@ -1,9 +1,12 @@
-#include "Command.hpp"
+// #include "Command.hpp"
 #include "ExecutorImpl.hpp"
+#include "Singleton.hpp"
+#include "CmderFactory.hpp"
 
-#include <unordered_map>
-#include <memory>
-#include <new>
+#include <algorithm>
+// #include <unordered_map>
+// #include <memory>
+// #include <new>
 
 namespace adas
 {
@@ -21,21 +24,30 @@ namespace adas
         return new (std::nothrow) ExecutorImpl(pose); // c++17
     }
 
-    void ExecutorImpl::Execute(const std::string &command) noexcept
+    void ExecutorImpl::Execute(const std::string &commands) noexcept
     {
-        std::unordered_map<char, std::function<void(PoseHandler & PoseHandler)>> cmderMap{
-            // 前进
-            {'M', MoveCommand()},
-            // 后退
-            {'B', ReverseCommand()},
-            // 左转
-            {'L', TurnLeftCommand()},
-            // 右转
-            {'R', TurnRightCommand()},
-            // 加速
-            {'F', FastCommand()},
+        const auto cmders = Singleton<CmderFactory>::Instance().GetCmders(commands);
 
-        };
+        std::for_each(
+            cmders.begin(),
+            cmders.end(),
+            [this](const std::function<void(PoseHandler & poseHandler)> &cmder) noexcept
+            {
+                cmder(poseHandler);
+            });
+        // std::unordered_map<char, std::function<void(PoseHandler & PoseHandler)>> cmderMap{
+        //     // 前进
+        //     {'M', MoveCommand()},
+        //     // 后退
+        //     {'B', ReverseCommand()},
+        //     // 左转
+        //     {'L', TurnLeftCommand()},
+        //     // 右转
+        //     {'R', TurnRightCommand()},
+        //     // 加速
+        //     {'F', FastCommand()},
+
+        // };
 
         // // 前进
         // cmderMap.emplace('M', MoveCommand());
@@ -49,44 +61,42 @@ namespace adas
         // // 加速
         // cmderMap.emplace('F', FastCommand());
 
-        for (const auto cmd : command)
-        {
-            // 根据操作查找表驱动
-            const auto it = cmderMap.find(cmd);
-            // 如果找到表驱动，执行操作指令
-            if (it != cmderMap.end())
-                it->second(poseHandler);
-            // std::unique_ptr<ICommand> cmder = nullptr;
-            // if (cmd == 'M')
-            // {
-            //     // 智能指针指向 MoveCommand实例
-            //     cmder = std::make_unique<MoveCommand>();
-            // }
+        // for (const auto cmd : command)
+        // {
+        //     // 根据操作查找表驱动
+        //     const auto it = cmderMap.find(cmd);
+        //     // 如果找到表驱动，执行操作指令
+        //     if (it != cmderMap.end())
+        //         it->second(poseHandler);
+        // std::unique_ptr<ICommand> cmder = nullptr;
+        // if (cmd == 'M')
+        // {
+        //     // 智能指针指向 MoveCommand实例
+        //     cmder = std::make_unique<MoveCommand>();
+        // }
 
-            // else if (cmd == 'L')
-            // {
-            //     // 智能指针指向 TurnLeftCommand实例
-            //     cmder = std::make_unique<TurnLeftCommand>();
-            // }
+        // else if (cmd == 'L')
+        // {
+        //     // 智能指针指向 TurnLeftCommand实例
+        //     cmder = std::make_unique<TurnLeftCommand>();
+        // }
 
-            // else if (cmd == 'R')
-            // {
-            //     // 智能指针指向 TurnRightCommand实例
-            //     cmder = std::make_unique<TurnRightCommand>();
-            // }
+        // else if (cmd == 'R')
+        // {
+        //     // 智能指针指向 TurnRightCommand实例
+        //     cmder = std::make_unique<TurnRightCommand>();
+        // }
 
-            // else if (cmd == 'F')
-            // {
-            //     cmder = std::make_unique<FastCommand>();
-            // }
+        // else if (cmd == 'F')
+        // {
+        //     cmder = std::make_unique<FastCommand>();
+        // }
 
-            // else if (cmd == 'B')
-            // {
-            //     cmder = std::make_unique<ReverseCommand>()
-            // }
-            // if (cmder)
-            //     cmder->DoOperate(poseHandler);
-        }
+        // else if (cmd == 'B')
+        // {
+        //     cmder = std::make_unique<ReverseCommand>()
+        // }
+        // if (cmder)
+        //     cmder->DoOperate(poseHandler);
     }
-
 }

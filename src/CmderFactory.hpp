@@ -8,6 +8,8 @@
 
 namespace adas
 {
+    using Cmder = std::function<void(PoseHandler &poseHandler)>;
+    using CmderList = std::list<Cmder>;
     class CmderFactory final
     {
     private:
