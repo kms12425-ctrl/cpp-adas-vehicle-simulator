@@ -1,11 +1,10 @@
-
 #include "CmderFactory.hpp"
 
 namespace adas
 {
-    std::list<std::function<void(PoseHandler &poseHandler)>> CmderFactory::GetCmders(const std::string &commands) const noexcept
+    std::list<std::function<ActionGroup(PoseHandler &poseHandler)>> CmderFactory::GetCmders(const std::string &commands) const noexcept
     {
-        std::list<std::function<void(PoseHandler & PoseHandler)>> cmders;
+        std::list<std::function<ActionGroup(PoseHandler & PoseHandler)>> cmders;
         for (const auto cmd : commands)
         {
             // 根据操作查找表驱动

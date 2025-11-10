@@ -31,9 +31,9 @@ namespace adas
         std::for_each(
             cmders.begin(),
             cmders.end(),
-            [this](const std::function<void(PoseHandler & poseHandler)> &cmder) noexcept
+            [this](const Cmder &cmder) noexcept
             {
-                cmder(poseHandler);
+                cmder(poseHandler).DoOperate(poseHandler);
             });
         // std::unordered_map<char, std::function<void(PoseHandler & PoseHandler)>> cmderMap{
         //     // 前进
