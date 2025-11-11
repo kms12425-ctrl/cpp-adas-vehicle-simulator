@@ -13,6 +13,10 @@ namespace adas
     class CmderFactory final
     {
     private:
+        std::string ParseCommandString(std::string_view commands) const noexcept;
+        void ReplaceAll(std::string &inout, std::string_view what, std::string with) const noexcept;
+
+    private:
         const std::unordered_map<char, Cmder> cmderMap{
             // 前进
             {'M', MoveCommand()},
@@ -24,6 +28,8 @@ namespace adas
             {'R', TurnRightCommand()},
             // 加速
             {'F', FastCommand()},
+            // 掉头
+            {'Z', TurnRoundCommand()},
         };
 
     public:
