@@ -2,9 +2,9 @@
 
 namespace adas
 {
-    std::list<std::function<ActionGroup(PoseHandler &poseHandler)>> CmderFactory::GetCmders(const std::string &commands) const noexcept
+    std::list<Cmder> CmderFactory::GetCmders(const std::string &commands) const noexcept
     {
-        std::list<std::function<ActionGroup(PoseHandler & PoseHandler)>> cmders;
+        std::list<Cmder> cmders;
         for (const auto cmd : ParseCommandString(commands))
         {
             // 根据操作查找表驱动

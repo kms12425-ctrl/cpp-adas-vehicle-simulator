@@ -25,6 +25,7 @@ namespace adas
         ActionGroup(void) = default;
         ~ActionGroup(void) = default;
         explicit ActionGroup(const std::list<ActionType> &actions) noexcept;
+        ActionGroup &operator+=(const ActionGroup &rhs) noexcept;
 
     public:
         void PushAction(const ActionType ActionType) noexcept;
