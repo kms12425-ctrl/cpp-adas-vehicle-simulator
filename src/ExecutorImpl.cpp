@@ -1,7 +1,7 @@
 // #include "Command.hpp"
 #include "ExecutorImpl.hpp"
-#include "Singleton.hpp"
-#include "CmderFactory.hpp"
+#include "core/Singleton.hpp"
+#include "cmder/CmderFactory.hpp"
 
 #include <algorithm>
 // #include <unordered_map>
