@@ -26,8 +26,7 @@ namespace adas
     // {
     //     return new (std::nothrow) ExecutorImpl(pose); // c++17
     // }
-    Executor *Executor::NewExecutor(const Pose &pose,
-                                    const ExecutorType executorType) noexcept
+    Executor *Executor::NewExecutor(const Pose &pose, const ExecutorType executorType) noexcept
     {
         CmderOrchestrator *orchestrator = nullptr;
         switch (executorType)
